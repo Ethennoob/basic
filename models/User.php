@@ -41,9 +41,10 @@ class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web
     public function rules()
     {
         return [
-            [['username', 'password'], 'required'],
-            [['username'], 'string', 'max' => 50],
-            [['password'], 'string', 'max' => 32],
+            [['username', 'password','email'], 'required'],
+            [['username'], 'string', 'max' => 20],
+            [['password'], 'string', 'max' => 20],
+            [['email'], 'string', 'max' => 100],
             [['authKey'], 'string', 'max' => 100],
             [['accessToken'], 'string', 'max' => 100],
         ];
@@ -56,11 +57,21 @@ class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'password' => 'Password',
+            'username' => '用户名',
+            'password' => '密码',
             'authKey' => 'AuthKey',
             'accessToken' => 'AccessToken',
         ];
+    }
+
+     /**
+     * Generates password hash from password and sets it to the model
+     *
+     * @param string $password
+     */
+    public function setPassword($password)
+    {
+        $this->password = md5($password);
     }
 
     /**

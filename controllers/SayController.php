@@ -89,7 +89,7 @@ class SayController extends Controller
         
         //插入单数据
         $test=new Test1;
-        /*$test->id='';
+        $test->id='';
         $test->title='dadsada@dasda.com';
         $test->validate();//验证数据格式
         if($test->hasErrors()){//判定是否出现错误
@@ -97,13 +97,13 @@ class SayController extends Controller
         }else{
             echo "data is successful!"; 
             $test->save(); 
-        }*/
+        }
 
         //修改单数据
-        $test=Test1::find()->where(['id'=>4])->one();
+       /* $test=Test1::find()->where(['id'=>4])->one();
         $test->title='title4';
         $test->save();
-        print_r($test);
+        print_r($test);*/
         //$this->render('index',$res);
     }
 }
