@@ -99,9 +99,6 @@ class SiteController extends Controller
         $model = new SignupForm();
     if ($model->load(Yii::$app->request->post())) {
         if ($model->signup()) {
-            return $this->render('login',[
-            'model' => $model,
-        ]);
         }
     }
         return $this->render('signup',[

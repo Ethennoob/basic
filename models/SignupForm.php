@@ -55,16 +55,17 @@ class SignupForm extends Model
         ];
     }
 
-    //注意这个方法里user表的字段
-public function signup()
-{
+    /**
+     * 注册方法 
+     */
+    public function signup()
+    {
     $request = Yii::$app->request;
     if ($this->validate()) {
         $user = new User();
-        $user->attributes = $_POST['SignupForm']; 
+        $user->attributes = $_POST['SignupForm'];//待处理，密码加密
         $user->save();
         echo "<script>alert('注册成功');window.location.href='index.php?r=site/login';</script>";
+        }
     }
-}
-   
 }
