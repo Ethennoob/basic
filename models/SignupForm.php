@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Html;
 use yii\base\Model;
 use app\models\User;
 
@@ -29,6 +30,7 @@ class SignupForm extends Model
             ['email','required','message' => '邮箱不能为空'],
             ['username', 'required','message' => '用户名不能为空'],
             ['username', 'unique','targetClass' => 'app\models\User', 'message' => '用户名已存在'],
+            ['email', 'unique','targetClass' => 'app\models\User', 'message' => 'E-mail已存在'],
             ['username', 'string', 'min' => 6, 'max' => 20,'message' => '用户名要求6-20位'],
             ['password', 'required','message' => '密码不能为空'],
             ['password', 'string', 'min' => 6,'max' => 20,'message' => '密码要求6-20位'],
@@ -60,12 +62,17 @@ class SignupForm extends Model
      */
     public function signup()
     {
-    $request = Yii::$app->request;
     if ($this->validate()) {
         $user = new User();
-        $user->attributes = $_POST['SignupForm'];//待处理，密码加密
-        $user->save();
-        echo "<script>alert('注册成功');window.location.href='index.php?r=site/login';</script>";
-        }
+        //$user->attributes = $_POST['SignupForm'];//另一种POST方法
+        $user->username = Html::encode($_POST['SignupForm']['username']);//待处理，md5密码加密完成
+        $user->setPassword(Html::encode($this->password));
+        $user->email = Html::encode($_POST['SignupForm']['email']);
+        $user->generateAuthKey();
+        //$hash = Yii::$app->getSecurity()->generatePasswordHash($password);//hash加密
+        if ($user->save()) {
+                return $user;
+            }
+        } return null;
     }
 }

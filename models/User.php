@@ -1,6 +1,7 @@
 <?php 
 namespace app\models;
 
+use Yii;
 class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
    
@@ -21,7 +22,7 @@ class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web
         return [
             [['username', 'password','email'], 'required'],
             [['username'], 'string', 'max' => 20],
-            [['password'], 'string', 'max' => 20],
+            [['password'], 'string', 'max' => 100],
             [['email'], 'string', 'max' => 100],
             [['authKey'], 'string', 'max' => 100],
             [['accessToken'], 'string', 'max' => 100],
@@ -112,6 +113,14 @@ class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web
     }
 
     /**
+     * Generates "remember me" authentication key
+     */
+    public function generateAuthKey()
+    {
+        $this->authKey = Yii::$app->security->generateRandomString();
+    }
+
+    /**
      * @inheritdoc
      */
     public function getAuthKey()
@@ -135,7 +144,9 @@ class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        //if(Yii::$app->getSecurity()->validatePassword($password, $hash)){
+             return $this->password === md5($password);
+        //}
     }
 }
  ?>

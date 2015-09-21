@@ -8,11 +8,19 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
 
-$this->title = 'Sign up';
+$this->title = '注册';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
  <div class="row">
+ <h1><?= Html::encode($this->title) ?></h1>
+    <p>Please fill out the following fields to Sign up:</p>
         <div class="col-lg-5">
+    <?php 
+    if (Yii::$app->session->hasFlash('success')) {
+        echo "<div class='alert alert-success'>".Yii::$app->session->getFlash('success'); 
+        echo Html::a('前去登录', ['site/login'], ['class' => 'btn btn-primary'])."</div>";
+    }
+     ?>
             <?php $form = ActiveForm::begin(); ?>
             <?= $form->field($model, 'username') ?>
             <?= $form->field($model, 'email') ?>
