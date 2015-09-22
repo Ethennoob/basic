@@ -29,16 +29,16 @@ $config = [
             'useFileTransport' =>false,//这句一定有，false发送邮件，true只是生成邮件在runtime文件夹下，不发邮件
             'transport' => [  
             'class' => 'Swift_SmtpTransport',  
-            'host' => 'smtp.163.com',  
-            'username' => 'bijiaolun640@163.com',  
-            'password' => 'zhengganghuan28',  
-            'port' => '25',  
-            'encryption' => 'tls',  
+            'host' => 'smtp.qq.com',  
+            'username' => '553299576@qq.com',  
+            'password' => 'lingx529$',  
+            'port' => '465',  
+            'encryption' => 'ssl',  
             ],   
-   'messageConfig'=>[  
-       'charset'=>'UTF-8',  
-       'from'=>['15618380091@163.com'=>'admin']  
-       ],  
+        'messageConfig'=>[  
+            'charset'=>'UTF-8',  
+            'from'=>['553299576@qq.com'=>'admin']  
+         ],  
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

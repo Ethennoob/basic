@@ -19,6 +19,8 @@ $this->params['breadcrumbs'][] = $this->title;
     if (Yii::$app->session->hasFlash('success')) {
         echo "<div class='alert alert-success'>".Yii::$app->session->getFlash('success'); 
         echo Html::a('前去登录', ['site/login'], ['class' => 'btn btn-primary'])."</div>";
+    }elseif (Yii::$app->session->hasFlash('emailerror')) {
+        echo "<div class='alert alert-danger'>".Yii::$app->session->getFlash('emailerror')."</div>";
     }
      ?>
             <?php $form = ActiveForm::begin(); ?>

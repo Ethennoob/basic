@@ -66,7 +66,8 @@ class SignupForm extends Model
         $user = new User();
         //$user->attributes = $_POST['SignupForm'];//另一种POST方法
         $user->username = Html::encode($_POST['SignupForm']['username']);//待处理，md5密码加密完成
-        $user->setPassword(Html::encode($this->password));
+        $user->password =  Html::encode($this->password);
+        $user->setPassword($user->password);
         $user->email = Html::encode($_POST['SignupForm']['email']);
         $user->generateAuthKey();
         //$hash = Yii::$app->getSecurity()->generatePasswordHash($password);//hash加密

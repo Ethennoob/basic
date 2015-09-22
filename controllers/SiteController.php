@@ -110,7 +110,14 @@ class SiteController extends Controller
     //表单提交
     if ($model->load(Yii::$app->request->post())) {
         if ($user = $model->signup()) {
-            Yii::$app->session->setFlash('success','你已经成功注册! :D　　　　　　');
+            $mail= Yii::$app->mailer->compose();   
+            $mail->setTo($model->email);  
+            $mail->setSubject("Yii2邮件测试");  //$mail->setTextBody('zheshisha ');   //发布纯文字文本
+            $mail->setHtmlBody('<br>您已经成功注册！成为XXX会员<br>您的用户名是：'.$model->username.'<br>您的密码是：'.$model->password);    //发布可以带html标签的文本
+        if($mail->send())  
+            Yii::$app->session->setFlash('success','你已经成功注册! :D　　　　　　');  
+        else  
+            Yii::$app->session->setFlash('emailerror','邮件发送失败   :(　　　　　　');   
         }    
     }
 
