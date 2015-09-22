@@ -26,7 +26,19 @@ $config = [
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport
             // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' =>false,//这句一定有，false发送邮件，true只是生成邮件在runtime文件夹下，不发邮件
+            'transport' => [  
+            'class' => 'Swift_SmtpTransport',  
+            'host' => 'smtp.qq.com',  
+            'username' => '553299576@qq.com',  
+            'password' => 'lingx529$',  
+            'port' => '465',  
+            'encryption' => 'ssl',  
+            ],   
+        'messageConfig'=>[  
+            'charset'=>'UTF-8',  
+            'from'=>['553299576@qq.com'=>'admin']  
+         ],  
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -40,6 +52,11 @@ $config = [
         'db' => require(__DIR__ . '/db.php'),
     ],
     'params' => $params,
+    'modules' => [
+        'admin' => [
+            'class' => 'app\modules\admin\AdminModule',
+        ],
+    ],
 ];
 
 if (YII_ENV_DEV) {

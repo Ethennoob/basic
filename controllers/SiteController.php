@@ -8,6 +8,10 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\SignupForm;
+use app\models\SurveyForm;
+use app\models\User;
+use app\modules\admin\models\Survey;
 
 class SiteController extends Controller
 {
@@ -90,5 +94,50 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionSignup()
+    {
+     $model = new SignupForm();
+
+     //ajax验证
+      /*$model->load($_POST);
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return \yii\bootstrap\ActiveForm::validate($model);
+        }*/
+
+    //表单提交
+    if ($model->load(Yii::$app->request->post())) {
+        if ($user = $model->signup()) {
+            $mail= Yii::$app->mailer->compose();   
+            $mail->setTo($model->email);  
+            $mail->setSubject("Yii2邮件测试");  //$mail->setTextBody('zheshisha ');   //发布纯文字文本
+            $mail->setHtmlBody('<br>您已经成功注册！成为XXX会员<br>您的用户名是：'.$model->username.'<br>您的密码是：'.$model->password);    //发布可以带html标签的文本
+        if($mail->send())  
+            Yii::$app->session->setFlash('success','你已经成功注册! :D　　　　　　');  
+        else  
+            Yii::$app->session->setFlash('emailerror','邮件发送失败   :(　　　　　　');   
+        }    
+    }
+
+    return $this->render('signup',[
+            'model' => $model,
+        ]);
+    }
+
+    public function actionSurvey()
+    {
+        $model = new SurveyForm();
+        if ($model->load(Yii::$app->request->post())) {
+           if ($survey = $model->surveysub()) {
+               Yii::$app->session->setFlash('subsuccess','成功提交调查表!感谢您的配合 :D');
+           }else{
+               Yii::$app->session->setFlash('suberror','提交失败  :(');
+           }    
+        }
+        return $this->render('survey', [
+            'model' => $model,
+        ]);
     }
 }

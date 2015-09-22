@@ -33,6 +33,16 @@ class LoginForm extends Model
     }
 
     /**
+     * 设置标签的显示名字 
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => '用户名',
+            'password' => '密　码',
+        ];
+    }
+    /**
      * Validates the password.
      * This method serves as the inline validation for password.
      *
@@ -45,7 +55,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, '用户名或密码错误.');
             }
         }
     }
