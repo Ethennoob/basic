@@ -26,6 +26,7 @@ class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web
             [['email'], 'string', 'max' => 100],
             [['authKey'], 'string', 'max' => 100],
             [['accessToken'], 'string', 'max' => 100],
+            [['password_reset_token'], 'string', 'max' => 43],
         ];
     }
 
@@ -40,6 +41,7 @@ class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web
             'password' => '密码',
             'authKey' => 'AuthKey',
             'accessToken' => 'AccessToken',
+            'password_reset_token' => '重置密码令牌',
         ];
     }
 
@@ -147,6 +149,56 @@ class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web
         //if(Yii::$app->getSecurity()->validatePassword($password, $hash)){
              return $this->password === md5($password);
         //}
+    }
+
+    /**
+     * Generates new password reset token
+     */
+    public function generatePasswordResetToken()
+    {
+        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
+    }
+
+    /**
+     * Removes password reset token
+     */
+    public function removePasswordResetToken()
+    {
+        $this->password_reset_token = null;
+    }
+
+    /**
+     * Finds user by password reset token
+     *
+     * @param string $token password reset token
+     * @return static|null
+     */
+    public static function findByPasswordResetToken($token)
+    {
+        if (!static::isPasswordResetTokenValid($token)) {
+            return null;
+        }
+
+        return static::findOne([
+            'password_reset_token' => $token,
+        ]);
+    }
+
+    /**
+     * Finds out if password reset token is valid
+     *
+     * @param string $token password reset token
+     * @return boolean
+     */
+    public static function isPasswordResetTokenValid($token)
+    {
+        if (empty($token)) {
+            return false;
+        }
+        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
+        $parts = explode('_', $token);
+        $timestamp = (int) end($parts);
+        return $timestamp + $expire >= time();
     }
 }
  ?>

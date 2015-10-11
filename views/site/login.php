@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php ActiveForm::end(); ?>
 
     <div class="col-lg-offset-1" style="color:#999;">
-        You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
-        To modify the username/password, please check out the code <code>app\models\User::$users</code>.
+        <code>忘记密码？</code>.
+        需要通过<?= Html::a('邮箱找回', ['user/findpwd'], ['class' => 'profile-link']) ?>
     </div>
 </div>

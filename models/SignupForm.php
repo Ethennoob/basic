@@ -76,4 +76,14 @@ class SignupForm extends Model
             }
         } return null;
     }
+
+    public function sendEmail()
+    {
+        return \Yii::$app->mailer->compose()
+                    //->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name . ' robot'])
+                    ->setTo($this->email)
+                    ->setSubject('Congratulate sign up for Apple.Inc')   //发布纯文字文本
+                    ->setHtmlBody('<br>您已经成功注册！成为XXX会员<br>您的用户名是：'.$this->username.'<br>您的密码是：'.$this->password)    //发布可以带html标签的文本*/
+                    ->send();
+    }
 }

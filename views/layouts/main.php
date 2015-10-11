@@ -5,6 +5,7 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
+use yii\helpers\Url;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
@@ -27,32 +28,39 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'My Company',
+        'brandLabel' => '<i class="glyphicon glyphicon-apple"></i>',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'Survey', 'url' => ['/site/survey']],
-            Yii::$app->user->isGuest ? 
-                ['label' => 'sign up', 'url' => ['/site/signup']]:
-                ['label' => 'backend', 'url' => ['/admin']],
-            Yii::$app->user->isGuest ?
-                ['label' => 'Login', 'url' => ['/site/login']]:
-                [
-                    'label' => 'Logout (' . Yii::$app->user->identity->username . ')',
+
+    $menuItems = [
+                ['label' => '<i class="glyphicon glyphicon-home"></i> ' . Yii::t('app', 'Home'), 'url' => ['/site/index']],
+                ['label' => '<i class="glyphicon glyphicon-globe"></i> ' . Yii::t('app', 'About'), 'url' => ['/site/about']],
+                ['label' => '<i class="glyphicon glyphicon-blackboard"></i> ' . Yii::t('app', 'Mac'), 'url' => ['/site/contact']],
+                ['label' => '<i class="glyphicon glyphicon-edit"></i> ' . Yii::t('app', 'iPad'), 'url' => ['/site/contact']],
+                ['label' => '<i class="glyphicon glyphicon-phone"></i> ' . Yii::t('app', 'iPhone'), 'url' => ['/site/contact']],
+                ['label' => '<i class="glyphicon glyphicon-modal-window"></i> ' . Yii::t('app', 'Watch'), 'url' => ['/site/contact']]
+            ];
+            if (Yii::$app->user->isGuest) {
+                $menuItems[] = ['label' => '<i class="glyphicon glyphicon-plus-sign"></i> ' . Yii::t('app', 'Sign up'), 'url' => ['/site/signup']];
+                $menuItems[] = ['label' => '<i class="glyphicon glyphicon-log-in"></i> ' . Yii::t('app', 'Log in'), 'url' => ['/site/login']];
+            } else {
+                $menuItems[] = ['label' => '<i class="glyphicon glyphicon-shopping-cart"></i> ' . Yii::t('app', ''), 'url' => ['/user/index']];
+                $menuItems[] = [
+                    'label' => '<i class="glyphicon glyphicon-log-out"></i> ' . Yii::t('app', 'Log out') . '(' . Yii::$app->user->identity->username . ')',
                     'url' => ['/site/logout'],
                     'linkOptions' => ['data-method' => 'post']
-                ],
-        ],
-    ]);
-    NavBar::end();
+                ];
+            }
+            echo Nav::widget([
+                'options' => ['class' => 'navbar-nav navbar-right'],
+                'encodeLabels' => false,
+                'items' => $menuItems,
+            ]);
+
+ NavBar::end();
     ?>
 
     <div class="container">
