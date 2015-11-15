@@ -59,8 +59,8 @@ class ResetPasswordForm extends Model
     public function attributeLabels()
     {
         return [
-            'password' => Yii::t('app', '新密码'),
-            'password2' => Yii::t('app', '确认密码'),
+            'password' => '新密码',
+            'password2' => '确认密码',
         ];
     }
 

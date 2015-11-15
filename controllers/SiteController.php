@@ -12,6 +12,7 @@ use app\models\SignupForm;
 use app\models\SurveyForm;
 use app\models\User;
 use app\modules\admin\models\Survey;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {

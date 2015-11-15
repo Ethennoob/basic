@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'edu',
             'info:ntext',
             'create_time',
+            'logo',
         ],
     ]) ?>
 

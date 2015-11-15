@@ -7,6 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
+use dosamigos\datepicker\DatePicker;
 
 $this->title = '注册';
 $this->params['breadcrumbs'][] = $this->title;
@@ -23,11 +24,22 @@ $this->params['breadcrumbs'][] = $this->title;
         echo "<div class='alert alert-danger'>".Yii::$app->session->getFlash('emailerror')."</div>";
     }
      ?>
-            <?php $form = ActiveForm::begin(); ?>
+            <?php $form = ActiveForm::begin(['options' => ['enctype'=>'multipart/form-data']]); ?>
             <?= $form->field($model, 'username') ?>
             <?= $form->field($model, 'email') ?>
+            <?= $form->field($model, 'brithday')->widget(
+                DatePicker::className(), [
+                // inline too, not bad
+                //'inline' => true, 
+                // modify template for custom rendering
+                //'template' => '<div class="well well-sm" style="background-color: #fff; width:250px">{input}</div>',
+                'clientOptions' => [
+                'autoclose' => true,
+                'format' => 'yyyy-mm-dd'
+            ]]);?>
             <?= $form->field($model, 'password')->input('password') ?>
             <?= $form->field($model, 'password2')->input('password')  ?>
+            <?= $form->field($model, 'file')->fileInput();  ?>
             <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
                         'template' => '<div class="row"><div class="col-lg-3">{image}</div><div class="col-lg-6">{input}</div></div>',
            ]) ?>

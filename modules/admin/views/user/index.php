@@ -19,6 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'rowOptions'=>function($model){
+            if ($model->password_reset_token == '') {
+                return ['class'=>'success'];
+            }else{
+               return ['class'=>'danger'];
+            }
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -26,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',
             'password',
             'email:email',
+            'brithday',
             //'authKey',
             'password_reset_token',
             //'accessToken',

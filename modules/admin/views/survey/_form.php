@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="survey-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'mutipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -25,6 +25,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'info')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'create_time')->textInput() ?>
+
+    <?= $form->field($model, 'logo')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

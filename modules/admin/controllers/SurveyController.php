@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 /**
  * SurveyController implements the CRUD actions for Survey model.
@@ -77,7 +78,20 @@ class SurveyController extends Controller
     {
         $model = new Survey();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            //上传文件
+            //$imageName = $model->name;
+            //$model->file = UploadedFile::getInstance($model, 'file');
+            //if ($model->file && $model->validate()){
+                //$model->file->saveAs( 'uploads/' . $model->file->baseName . '.' . $model->file->extension);
+                //$model->logo='uploads/'.$imageName.'.jpg';
+            //}
+            //$model->file->saveAs('uploads/' . $imageName . '.' . $model->file->extension);
+
+            //存储地址在数据库
+            $model->save();
+ 
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [

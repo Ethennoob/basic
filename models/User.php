@@ -4,8 +4,8 @@ namespace app\models;
 use Yii;
 class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
-   
 
+    public $file;
     /**
      * @inheritdoc
      */
@@ -20,10 +20,13 @@ class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web
     public function rules()
     {
         return [
-            [['username', 'password','email'], 'required'],
+            [['username', 'password','email','brithday'], 'required'],
             [['username'], 'string', 'max' => 20],
             [['password'], 'string', 'max' => 100],
+            [['file'],'file'],
+            [['avatar'], 'string', 'max' => 255],
             [['email'], 'string', 'max' => 100],
+            [['brithday'],'safe'],
             [['authKey'], 'string', 'max' => 100],
             [['accessToken'], 'string', 'max' => 100],
             [['password_reset_token'], 'string', 'max' => 43],
@@ -39,8 +42,10 @@ class User extends /*\yii\base\Object*/ \yii\db\ActiveRecord implements \yii\web
             'id' => 'ID',
             'username' => '用户名',
             'password' => '密码',
+            'brithday' => '生日',
             'authKey' => 'AuthKey',
             'accessToken' => 'AccessToken',
+            'avatar' => '头像', 
             'password_reset_token' => '重置密码令牌',
         ];
     }

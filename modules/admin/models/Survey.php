@@ -18,6 +18,7 @@ use Yii;
  */
 class Survey extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * @inheritdoc
      */
@@ -32,14 +33,16 @@ class Survey extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'age', 'sex', 'edu', 'info'], 'required'],
+            [['name', 'age', 'sex', 'edu', 'info','file'], 'required'],
             [['age'], 'integer'],
             [['info'], 'string'],
             [['create_time'], 'safe'],
             [['name'], 'string', 'max' => 10],
             [['sex'], 'string', 'max' => 2],
-            [['hobby'], 'string', 'max' => 100],
-            [['edu'], 'string', 'max' => 5]
+            [['hobby','logo'], 'string', 'max' => 100],
+            [['edu'], 'string', 'max' => 5],
+            [['file'],'file'],
+
         ];
     }
 
@@ -57,6 +60,7 @@ class Survey extends \yii\db\ActiveRecord
             'hobby' => '爱好',
             'info' => '信息',
             'create_time' => 'Create Time',
+            'file' => 'logo',
         ];
     }
 }
