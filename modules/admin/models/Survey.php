@@ -15,10 +15,12 @@ use Yii;
  * @property string $info
  * @property string $hobby
  * @property string $create_time
+ * @property string $user
  */
 class Survey extends \yii\db\ActiveRecord
 {
     public $file;
+    public $user;
     /**
      * @inheritdoc
      */
@@ -33,13 +35,13 @@ class Survey extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'age', 'sex', 'edu', 'info','file'], 'required'],
+            [['name', 'age', 'sex', 'edu', 'info','file','user'], 'required'],
             [['age'], 'integer'],
             [['info'], 'string'],
             [['create_time'], 'safe'],
             [['name'], 'string', 'max' => 10],
             [['sex'], 'string', 'max' => 2],
-            [['hobby','logo'], 'string', 'max' => 100],
+            [['hobby','logo','user'], 'string', 'max' => 100],
             [['edu'], 'string', 'max' => 5],
             [['file'],'file'],
 
@@ -52,6 +54,7 @@ class Survey extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'user'=>'用户',
             'id' => 'ID',
             'name' => '姓名',
             'age' => '年龄',

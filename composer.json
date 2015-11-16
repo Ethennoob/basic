@@ -1,5 +1,7 @@
 {
     "require": {
-        "2amigos/yii2-date-picker-widget": "*"
+        "2amigos/yii2-date-picker-widget": "*",
+        "kartik-v/yii2-widget-select2": "*",
+        "kartik-v/yii2-detail-view": "*"
     }
 }

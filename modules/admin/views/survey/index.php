@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use kartik\detail\DetailView;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -34,5 +34,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <?= DetailView::widget([
+    'model'=>$model,
+    'condensed'=>true,
+    'hover'=>true,
+    'mode'=>DetailView::MODE_VIEW,
+    'panel'=>[
+        'heading'=>'Book # ' . $model->id,
+        'type'=>DetailView::TYPE_INFO,
+    ],
+    'attributes'=>[
+        'code',
+        'name',
+        ['attribute'=>'publish_date', 'type'=>DetailView::INPUT_DATE],
+    ]
+]);?>
 
 </div>
