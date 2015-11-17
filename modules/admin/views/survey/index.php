@@ -2,7 +2,10 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use kartik\detail\DetailView;
+use yii\widgets\Pjax;
+use yii\bootstrap\Modal;
+use yii\helpers\Url;
+
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -14,9 +17,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Survey', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <?= Html::button('Create Survey', ['value'=>Url::to('index.php?r=admin/survey/create'),'class' => 'btn btn-success','id'=>'modalButton']) ?>
 
+    </p>
+    <?php 
+    Modal::begin([
+            'header' => '<h4>用户</h4>',
+            'id' => 'modal',
+            'size' => 'modal-lg',
+        ]);
+    echo "<div id='modalContent'></div>";
+    Modal::end();
+     ?>
+     <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
@@ -34,20 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-    <?= DetailView::widget([
-    'model'=>$model,
-    'condensed'=>true,
-    'hover'=>true,
-    'mode'=>DetailView::MODE_VIEW,
-    'panel'=>[
-        'heading'=>'Book # ' . $model->id,
-        'type'=>DetailView::TYPE_INFO,
-    ],
-    'attributes'=>[
-        'code',
-        'name',
-        ['attribute'=>'publish_date', 'type'=>DetailView::INPUT_DATE],
-    ]
-]);?>
+    <?php Pjax::end(); ?>
 
 </div>

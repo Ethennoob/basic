@@ -48,12 +48,14 @@ class SurveyController extends Controller
      */
     public function actionIndex()
     {
+        $model = new Survey();
         $searchModel = new SurveySeach();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
 

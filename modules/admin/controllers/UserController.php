@@ -47,12 +47,14 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
+        $model = new User();
         $dataProvider = new ActiveDataProvider([
             'query' => User::find(),
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
 

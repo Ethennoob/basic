@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+/*use yii\widgets\DetailView;*/
+use kartik\detail\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
@@ -25,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
+    <?php /*DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
@@ -36,6 +37,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'authKey',
             'accessToken',
         ],
-    ]) ?>
+    ]) */?>
+    <?= DetailView::widget([
+    'model'=>$model,
+    'condensed'=>true,
+    'hover'=>true,
+    'mode'=>DetailView::MODE_VIEW,
+    'panel'=>[
+        'heading'=>'Survey # ' . $model->id,
+        'type'=>DetailView::TYPE_INFO,
+    ],
+    'attributes'=>[
+            'username',
+            'email:email',
+            'brithday',
+            'authKey',
+            'accessToken',
+        /*['attribute'=>'brithday', 'type'=>DetailView::INPUT_DATE],*/
+    ]
+]);?>
 
 </div>
