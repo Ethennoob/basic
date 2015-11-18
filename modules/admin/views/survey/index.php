@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
@@ -29,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo "<div id='modalContent'></div>";
     Modal::end();
      ?>
-     <?php Pjax::begin(); ?>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
@@ -47,6 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
+
 
 </div>

@@ -2,6 +2,8 @@
     "require": {
         "2amigos/yii2-date-picker-widget": "*",
         "kartik-v/yii2-widget-select2": "*",
-        "kartik-v/yii2-detail-view": "*"
+        "kartik-v/yii2-detail-view": "*",
+        "kartik-v/yii2-grid": "*",
+        "wbraganca/yii2-dynamicform": "*"
     }
 }
