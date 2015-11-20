@@ -14,14 +14,14 @@ use Yii;
  *
  * @property Po $po
  */
-class PoItem extends \yii\db\ActiveRecord
+class Poitem extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'po_item';
+        return 'poitem';
     }
 
     /**

@@ -20,7 +20,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <div class="row">
     	<div class="panel panel-default">
-        <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>PoItems/h4></div>
+        <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i>Poitems/h4></div>
         <div class="panel-body">
              <?php DynamicFormWidget::begin([
                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
@@ -30,7 +30,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                 'min' => 1, // 0 or 1 (default 1)
                 'insertButton' => '.add-item', // css class
                 'deleteButton' => '.remove-item', // css class
-                'model' => $modelsPoItems[0],
+                'model' => $modelsPoitems[0],
                 'formId' => 'dynamic-form',
                 'formFields' => [
                     'po_item_no',
@@ -39,7 +39,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
             ]); ?>
 
             <div class="container-items"><!-- widgetContainer -->
-            <?php foreach ($modelsPoItems as $i => $model): ?>
+            <?php foreach ($modelsPoitems as $i => $model): ?>
                 <div class="item panel panel-default"><!-- widgetBody -->
                     <div class="panel-heading">
                         <h3 class="panel-title pull-left">Po Item</h3>

@@ -5,12 +5,12 @@ namespace app\modules\admin\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\modules\admin\models\PoItem;
+use app\modules\admin\models\Poitem;
 
 /**
- * PoItemSearch represents the model behind the search form about `app\modules\admin\models\PoItem`.
+ * PoitemSearch represents the model behind the search form about `app\modules\admin\models\Poitem`.
  */
-class PoItemSearch extends PoItem
+class PoitemSearch extends Poitem
 {
     /**
      * @inheritdoc
@@ -42,7 +42,7 @@ class PoItemSearch extends PoItem
      */
     public function search($params)
     {
-        $query = PoItem::find();
+        $query = Poitem::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -3,16 +3,16 @@
 namespace app\modules\admin\controllers;
 
 use Yii;
-use app\modules\admin\models\PoItem;
-use app\modules\admin\models\PoItemSearch;
+use app\modules\admin\models\Poitem;
+use app\modules\admin\models\PoitemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PoItemController implements the CRUD actions for PoItem model.
+ * PoitemController implements the CRUD actions for Poitem model.
  */
-class PoItemController extends Controller
+class PoitemController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class PoItemController extends Controller
     }
 
     /**
-     * Lists all PoItem models.
+     * Lists all Poitem models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PoItemSearch();
+        $searchModel = new PoitemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,7 +42,7 @@ class PoItemController extends Controller
     }
 
     /**
-     * Displays a single PoItem model.
+     * Displays a single Poitem model.
      * @param integer $id
      * @return mixed
      */
@@ -54,13 +54,13 @@ class PoItemController extends Controller
     }
 
     /**
-     * Creates a new PoItem model.
+     * Creates a new Poitem model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new PoItem();
+        $model = new Poitem();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -72,7 +72,7 @@ class PoItemController extends Controller
     }
 
     /**
-     * Updates an existing PoItem model.
+     * Updates an existing Poitem model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -91,7 +91,7 @@ class PoItemController extends Controller
     }
 
     /**
-     * Deletes an existing PoItem model.
+     * Deletes an existing Poitem model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -104,15 +104,15 @@ class PoItemController extends Controller
     }
 
     /**
-     * Finds the PoItem model based on its primary key value.
+     * Finds the Poitem model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return PoItem the loaded model
+     * @return Poitem the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = PoItem::findOne($id)) !== null) {
+        if (($model = Poitem::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

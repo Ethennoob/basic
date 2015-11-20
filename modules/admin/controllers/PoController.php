@@ -8,7 +8,7 @@ use app\modules\admin\models\PoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\modules\admin\models\PoItem;
+use app\modules\admin\models\Poitem;
 use app\modules\admin\models\Model;
 use yii\helpers\ArrayHelper;
 
@@ -64,24 +64,24 @@ class PoController extends Controller
     public function actionCreate()
     {
         $model = new Po();
-        $modelsPoItems = [new PoItem];
+        $modelsPoitems = [new Poitem];
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
-            $modelsPoItems = Model::createMultiple(PoItem::classname());
-            Model::loadMultiple($modelsPoItems, Yii::$app->request->post());
+            $modelsPoitems = Model::createMultiple(Poitem::classname());
+            Model::loadMultiple($modelsPoitems, Yii::$app->request->post());
 
             // validate all models
             $valid = $model->validate();
-            $valid = Model::validateMultiple($modelsPoItems) && $valid;
+            $valid = Model::validateMultiple($modelsPoitems) && $valid;
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
-                        foreach ($modelsPoItems as $modelPoItem) {
-                            $modelPoItem->po_id = $model->id;
-                            if (! ($flag = $modelPoItem->save(false))) {
+                        foreach ($modelsPoitems as $modelPoitem) {
+                            $modelPoitem->po_id = $model->id;
+                            if (! ($flag = $modelPoitem->save(false))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -99,7 +99,7 @@ class PoController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'modelsPoItems'=>(empty($modelsPoItems)) ? [new PoItem] : $modelsPoItems]);
+                'modelsPoitems'=>(empty($modelsPoitems)) ? [new Poitem] : $modelsPoitems]);
         }
     }
 
@@ -112,30 +112,30 @@ class PoController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        //$modelsPoItems = PoItem::find()->where(['po_id'=>$id])->all();
-        $modelsPoItems = $model->poItems;
+        //$modelsPoitems = $model->poitems; oh that error !!!
+        $modelsPoitems = Poitem::find()->where(['po_id'=>$id])->all();//it ture! :D
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $oldIDs = ArrayHelper::map($modelsPoItems, 'id', 'id');
-            $modelsPoItems = Model::createMultiple(PoItem::classname(), $modelsPoItems);
-            Model::loadMultiple($modelsPoItems, Yii::$app->request->post());
-            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsPoItems, 'id', 'id')));
+            $oldIDs = ArrayHelper::map($modelsPoitems, 'id', 'id');
+            $modelsPoitems = Model::createMultiple(Poitem::classname(), $modelsPoitems);
+            Model::loadMultiple($modelsPoitems, Yii::$app->request->post());
+            $deletedIDs = array_diff($oldIDs, array_filter(ArrayHelper::map($modelsPoitems, 'id', 'id')));
 
 
             // validate all models
             $valid = $model->validate();
-            $valid = Model::validateMultiple($modelsPoItems) && $valid;
+            $valid = Model::validateMultiple($modelsPoitems) && $valid;
 
             if ($valid) {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
                     if ($flag = $model->save(false)) {
                         if (! empty($deletedIDs)) {
-                            PoItem::deleteAll(['id' => $deletedIDs]);
+                            Poitem::deleteAll(['id' => $deletedIDs]);
                         }
-                        foreach ($modelsPoItems as $modelPoItem) {
-                            $modelPoItem->po_id = $model->id;
-                            if (! ($flag = $modelPoItem->save(false))) {
+                        foreach ($modelsPoitems as $modelPoitem) {
+                            $modelPoitem->po_id = $model->id;
+                            if (! ($flag = $modelPoitem->save(false))) {
                                 $transaction->rollBack();
                                 break;
                             }
@@ -152,7 +152,7 @@ class PoController extends Controller
         } else {
             return $this->render('update', [
                 'model' => $model,
-            ]);
+                'modelsPoitems'=>(empty($modelsPoitems)) ? [new Poitem] : $modelsPoitems]);
         }
     }
 
